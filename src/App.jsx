@@ -7,6 +7,7 @@ import {
   createUserWithEmailAndPassword,
   GoogleAuthProvider,
   signInWithPopup,
+  signInAnonymously,
 } from "firebase/auth";
 
 import "./App.css";
@@ -48,6 +49,21 @@ function App() {
         const errorMessage = error.message;
         console.log(error);
         // ..
+      });
+  };
+
+  const anonymousSignIn = () => {
+    signInAnonymously(auth)
+      .then((userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+        console.log(user);
+        // ...
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // ...
       });
   };
 
