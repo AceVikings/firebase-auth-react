@@ -130,15 +130,15 @@ function App() {
         >
           Google Sign In
         </button>
-        
       </div>
       <div className="flex flex-col mt-4 items-center">
         <button
           className="bg-gray-300 px-4 py-2 rounded-full"
           onClick={anonymousSignIn}
         >
-          Google Sign In
+          Anonymous Sign In
         </button>
+      </div>
     </div>
   );
 }
