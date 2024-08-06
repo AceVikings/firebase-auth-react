@@ -165,6 +165,9 @@ function App() {
           Link to Email
         </button>
       </div>
+      <div className="flex flex-col mt-4 items-center text-white">
+        <p>{user?.accessToken}</p>
+      </div>
     </div>
   );
 }
