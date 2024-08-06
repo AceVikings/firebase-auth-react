@@ -8,6 +8,8 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
   signInAnonymously,
+  linkWithCredential,
+  EmailAuthProvider,
 } from "firebase/auth";
 
 import "./App.css";
@@ -17,7 +19,7 @@ function App() {
   const [provider, setProvider] = useState();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
-
+  const [user, setUser] = useState();
   useEffect(() => {
     const app = initializeApp(firebaseConfig);
     const provider = new GoogleAuthProvider();
@@ -58,6 +60,7 @@ function App() {
         // Signed in
         const user = userCredential.user;
         console.log(user);
+        setUser(user);
         // ...
       })
       .catch((error) => {
@@ -88,6 +91,21 @@ function App() {
         const email = error.customData.email;
         // The AuthCredential type that was used.
         const credential = GoogleAuthProvider.credentialFromError(error);
+        // ...
+      });
+  };
+
+  const linkToEmail = () => {
+    linkWithCredential(user, EmailAuthProvider.credential(email, password))
+      .then((usercred) => {
+        // Email account successfully linked to the existing user.
+        const user = usercred.user;
+        console.log(user);
+        // ...
+      })
+      .catch((error) => {
+        console.log(error);
+        // An error happened.
         // ...
       });
   };
@@ -137,6 +155,14 @@ function App() {
           onClick={anonymousSignIn}
         >
           Anonymous Sign In
+        </button>
+      </div>
+      <div className="flex flex-col mt-4 items-center">
+        <button
+          className="bg-gray-300 px-4 py-2 rounded-full"
+          onClick={linkToEmail}
+        >
+          Link to Email
         </button>
       </div>
     </div>
